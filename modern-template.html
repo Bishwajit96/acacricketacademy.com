@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ACA Cricket Academy — Train. Compete. Excel.</title>
+<meta name="description" content="Assam Cricket Academy — BCCI affiliated centre of excellence. Residential, High-Performance, Personal & Pay-and-Play programs. Fulung, North Guwahati."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+/* ─────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g0:#040405;--g1:#0b0b0d;--g2:#131315;--g3:#1b1b1e;--g4:#252529;
+  --gold:#c8a84b;--gold2:#e2c46e;--gold3:#f5dfa0;--gold-dim:#8a6e28;
+  --cream:#f5eedd;--cream2:#ece3d0;
+  --w100:#fff;--w80:rgba(255,255,255,.8);--w60:rgba(255,255,255,.6);
+  --w35:rgba(255,255,255,.35);--w12:rgba(255,255,255,.12);--w06:rgba(255,255,255,.06);--w03:rgba(255,255,255,.03);
+  --ga25:rgba(200,168,75,.25);--ga12:rgba(200,168,75,.12);--ga06:rgba(200,168,75,.06);
+  --ease:cubic-bezier(.23,1,.32,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--g0);color:var(--w100);overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
+img{display:block;max-width:100%}
+a,button{cursor:none}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;border:none;background:none}
+::selection{background:var(--gold);color:var(--g0)}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--g1)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:99px}
+
+/* ─────────────────────────────────────────
+   LOADER
+───────────────────────────────────────── */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--g0);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+  transition:opacity .7s var(--ease),visibility .7s
+}
+#loader.hide{opacity:0;visibility:hidden;pointer-events:none}
+.loader-ball{
+  width:54px;height:54px;position:relative;
+  animation:loaderSpin 1.2s linear infinite
+}
+.loader-ball svg{width:100%;height:100%}
+@keyframes loaderSpin{to{transform:rotate(360deg)}}
+.loader-bar-wrap{
+  width:180px;height:2px;background:var(--w06);border-radius:99px;overflow:hidden
+}
+.loader-bar{
+  height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));
+  border-radius:99px;width:0%;
+  transition:width .08s linear
+}
+.loader-text{
+  font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;
+  letter-spacing:.25em;text-transform:uppercase;color:var(--w35)
+}
+
+/* ─────────────────────────────────────────
+   CUSTOM CURSOR
+───────────────────────────────────────── */
+#cursor-dot{
+  position:fixed;width:8px;height:8px;border-radius:50%;
+  background:var(--gold);pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+  mix-blend-mode:difference
+}
+#cursor-ring{
+  position:fixed;width:36px;height:36px;border-radius:50%;
+  border:1.5px solid rgba(200,168,75,.5);pointer-events:none;z-index:9997;
+  transform:translate(-50%,-50%);
+  transition:width .35s var(--ease),height .35s var(--ease),border-color .3s,transform .08s linear
+}
+#cursor-dot.hover{width:12px;height:12px;background:var(--gold2)}
+#cursor-ring.hover{width:54px;height:54px;border-color:var(--gold)}
+
+/* ─────────────────────────────────────────
+   SCROLL PROGRESS
+───────────────────────────────────────── */
+#progress{
+  position:fixed;top:0;left:0;height:2.5px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold3));
+  z-index:9995;width:0%;
+  box-shadow:0 0 10px var(--gold);
+  transition:width .05s linear
+}
+
+/* ─────────────────────────────────────────
+   TICKER
+───────────────────────────────────────── */
+#ticker{
+  background:var(--gold);
+  font-family:'Syne',sans-serif;font-size:.69rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--g0);
+  padding:8px 0;overflow:hidden;
+  position:relative;z-index:800
+}
+#ticker .t-wrap{display:flex;width:max-content;animation:tickScroll 28s linear infinite}
+#ticker .t-wrap span{padding:0 32px;white-space:nowrap}
+#ticker .t-wrap span::before{content:'◆  ';opacity:.45}
+@keyframes tickScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────── */
+#nav{
+  position:fixed;top:36px;left:50%;transform:translateX(-50%);
+  z-index:700;width:min(1100px,95vw);
+  background:rgba(4,4,5,.55);
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  border:1px solid rgba(200,168,75,.16);
+  border-radius:99px;
+  display:flex;align-items:center;
+  padding:6px 6px 6px 28px;gap:8px;
+  transition:top .5s var(--ease),border-radius .5s,width .5s,background .4s,padding .4s
+}
+#nav.pinned{
+  top:0;border-radius:0;width:100%;
+  background:rgba(4,4,5,.9);
+  padding:6px 32px
+}
+.n-logo{
+  font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:800;
+  letter-spacing:-.01em;margin-right:auto;color:var(--w100)
+}
+.n-logo .g{color:var(--gold)}
+.n-links{display:flex;list-style:none;gap:2px}
+.n-links a{
+  font-family:'Syne',sans-serif;font-size:.69rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--w60);padding:11px 14px;border-radius:10px;
+  transition:color .25s,background .25s
+}
+.n-links a:hover,.n-links a.act{color:var(--w100);background:var(--w06)}
+.n-links a.act{color:var(--gold)}
+.n-cta{
+  font-family:'Syne',sans-serif;font-size:.69rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--g0);padding:11px 24px;border-radius:99px;
+  transition:box-shadow .3s,transform .25s
+}
+.n-cta:hover{box-shadow:0 6px 28px rgba(200,168,75,.45);transform:scale(1.04)}
+.ham{display:none;flex-direction:column;gap:5px;padding:12px}
+.ham span{display:block;width:20px;height:1.5px;background:var(--w100);border-radius:2px;transition:.3s var(--ease)}
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+#hero{
+  position:relative;min-height:100svh;
+  display:grid;align-items:center;overflow:hidden
+}
+.h-bg{
+  position:absolute;inset:0;
+  background:url('https://acacricketacademy.com/image/ACA-Stadium.jpg') center/cover no-repeat;
+  will-change:transform
+}
+.h-bg::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(4,4,5,.25) 0%,rgba(4,4,5,0) 35%,rgba(4,4,5,.9) 100%),
+    linear-gradient(100deg,rgba(4,4,5,.75) 0%,rgba(4,4,5,0) 55%)
+}
+/* grid lines */
+.h-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(90deg,transparent,transparent 100px,rgba(200,168,75,.028) 100px,rgba(200,168,75,.028) 101px),
+    repeating-linear-gradient(0deg,transparent,transparent 100px,rgba(200,168,75,.018) 100px,rgba(200,168,75,.018) 101px)
+}
+/* glow orbs */
+.h-orb{position:absolute;border-radius:50%;pointer-events:none}
+.h-orb1{
+  width:700px;height:700px;top:-120px;right:-80px;
+  background:radial-gradient(circle,rgba(200,168,75,.1) 0%,transparent 65%);
+  animation:orbA 10s ease-in-out infinite alternate
+}
+.h-orb2{
+  width:480px;height:480px;bottom:0;left:-80px;
+  background:radial-gradient(circle,rgba(200,168,75,.07) 0%,transparent 65%);
+  animation:orbA 8s ease-in-out infinite alternate-reverse
+}
+@keyframes orbA{0%{transform:translate(0,0)}100%{transform:translate(24px,-32px)}}
+/* noise */
+.h-noise{
+  position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E")
+}
+/* floating badge */
+.h-badge{
+  position:absolute;bottom:15%;right:8%;z-index:3;
+  background:rgba(11,11,13,.8);backdrop-filter:blur(16px);
+  border:1px solid var(--ga25);border-radius:20px;
+  padding:18px 22px;display:flex;align-items:center;gap:14px;
+  animation:badgeFloat 5s ease-in-out infinite alternate
+}
+@keyframes badgeFloat{0%{transform:translateY(0)}100%{transform:translateY(-10px)}}
+.h-badge-icon{
+  width:44px;height:44px;border-radius:14px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:grid;place-items:center;font-size:1.2rem;flex-shrink:0
+}
+.h-badge-t1{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;color:var(--gold);margin-bottom:3px}
+.h-badge-t2{font-size:.7rem;color:var(--w60)}
+
+.h-content{
+  position:relative;z-index:3;
+  max-width:1100px;margin:0 auto;
+  padding:180px 32px 100px;
+}
+.h-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:26px;
+  background:rgba(200,168,75,.1);border:1px solid rgba(200,168,75,.22);
+  padding:7px 16px 7px 8px;border-radius:99px;
+  opacity:0;animation:fUp .8s .2s both
+}
+.h-eyebrow .pulse{
+  width:7px;height:7px;border-radius:50%;background:var(--gold);
+  animation:pulse 2.2s ease-in-out infinite
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(200,168,75,.4)}50%{box-shadow:0 0 0 6px rgba(200,168,75,0)}}
+.h-title{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(3.2rem,7vw,6.8rem);
+  line-height:.95;letter-spacing:-.03em;
+  margin-bottom:32px;
+}
+.h-line{display:block;overflow:hidden}
+.h-line span{
+  display:block;
+  opacity:0;transform:translateY(100%);
+  animation:lineUp .8s var(--ease) both
+}
+.h-line:nth-child(1) span{animation-delay:.3s}
+.h-line:nth-child(2) span{animation-delay:.48s}
+.h-line:nth-child(3) span{animation-delay:.66s}
+.h-stroke{
+  -webkit-text-stroke:2.5px var(--gold);
+  color:transparent;-webkit-text-fill-color:transparent
+}
+@keyframes lineUp{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}
+.h-sub{
+  font-size:clamp(.9rem,1.6vw,1.05rem);color:var(--w60);line-height:1.8;
+  max-width:500px;margin-bottom:44px;
+  opacity:0;animation:fUp .9s .85s both
+}
+.h-btns{
+  display:flex;gap:14px;flex-wrap:wrap;
+  opacity:0;animation:fUp .9s 1s both
+}
+.h-stats{
+  display:flex;gap:40px;flex-wrap:wrap;
+  margin-top:64px;padding-top:40px;
+  border-top:1px solid var(--w06);
+  opacity:0;animation:fUp .9s 1.15s both
+}
+.h-stat-val{
+  font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;
+  color:var(--gold);line-height:1
+}
+.h-stat-lbl{font-size:.72rem;color:var(--w35);letter-spacing:.06em;margin-top:4px}
+
+.h-scroll{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:0;animation:fUp .8s 1.5s both
+}
+.h-mouse{
+  width:22px;height:36px;border:1.5px solid var(--w35);border-radius:99px;
+  display:flex;justify-content:center;padding-top:5px
+}
+.h-mouse::before{
+  content:'';width:3px;height:7px;background:var(--gold);border-radius:99px;
+  animation:mscroll 2.2s ease-in-out infinite
+}
+@keyframes mscroll{0%{opacity:1;transform:translateY(0)}70%{opacity:0;transform:translateY(14px)}100%{opacity:0;transform:translateY(0)}}
+.h-scroll-lbl{font-family:'Syne',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--w35)}
+
+@keyframes fUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─────────────────────────────────────────
+   STAT BAND
+───────────────────────────────────────── */
+#band{background:var(--g2);border-top:1px solid var(--w06);border-bottom:1px solid var(--w06)}
+.band-wrap{
+  max-width:1100px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-around;
+  flex-wrap:wrap;padding:26px 32px;gap:20px
+}
+.b-item{display:flex;flex-direction:column;align-items:center;text-align:center}
+.b-val{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800;color:var(--gold);line-height:1}
+.b-lbl{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--w35);margin-top:4px}
+.b-div{width:1px;height:32px;background:var(--w06)}
+
+/* ─────────────────────────────────────────
+   SHARED SECTION UTILS
+───────────────────────────────────────── */
+.sec{position:relative;overflow:hidden}
+.wrap{max-width:1100px;margin:0 auto;padding:0 32px}
+.py{padding:120px 0}
+.s-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Syne',sans-serif;font-size:.63rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:16px
+}
+.s-tag::before{content:'';width:24px;height:1px;background:var(--gold)}
+.s-tag.dk{color:#b8860b}
+.s-tag.dk::before{background:#b8860b}
+.s-h2{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(1.9rem,3.5vw,3rem);
+  line-height:1.05;letter-spacing:-.025em;margin-bottom:18px
+}
+.s-h2 em{
+  font-style:normal;
+  background:linear-gradient(130deg,var(--gold) 20%,var(--gold3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.s-h2.dk em{background:linear-gradient(130deg,#b8860b,#d4a017);-webkit-background-clip:text;background-clip:text}
+.s-p{font-size:.93rem;color:var(--w60);line-height:1.82;max-width:480px}
+
+/* reveal */
+[data-r]{opacity:0;transform:translateY(48px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+[data-r=left]{transform:translateX(-56px)}
+[data-r=right]{transform:translateX(56px)}
+[data-r=scale]{transform:scale(.9)}
+[data-r=fade]{transform:none}
+[data-r].on{opacity:1;transform:none}
+[data-d="1"]{transition-delay:.08s}[data-d="2"]{transition-delay:.16s}[data-d="3"]{transition-delay:.24s}
+[data-d="4"]{transition-delay:.32s}[data-d="5"]{transition-delay:.4s}[data-d="6"]{transition-delay:.48s}
+
+/* ─────────────────────────────────────────
+   BUTTONS
+───────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:14px 30px;border-radius:99px;
+  transition:transform .35s var(--spring),box-shadow .35s var(--ease);
+  white-space:nowrap;position:relative;overflow:hidden
+}
+.btn::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:rgba(255,255,255,.12);transform:scaleX(0);transform-origin:left;
+  transition:transform .4s var(--ease)
+}
+.btn:hover::after{transform:scaleX(1)}
+.btn-g{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--g0);box-shadow:0 6px 28px rgba(200,168,75,.3)
+}
+.btn-g:hover{box-shadow:0 14px 44px rgba(200,168,75,.55);transform:translateY(-3px)}
+.btn-o{background:transparent;color:var(--w100);border:1.5px solid var(--w12)}
+.btn-o:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px)}
+.btn-dk{background:var(--g0);color:var(--w100);border:1.5px solid rgba(200,168,75,.3)}
+.btn-dk:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px)}
+.arr::after{content:'↗';transition:transform .3s,opacity .3s;background:none;position:static;transform:none}
+.arr:hover::after{transform:translate(2px,-2px) !important;background:none}
+
+/* ─────────────────────────────────────────
+   ABOUT
+───────────────────────────────────────── */
+#about{background:var(--g1)}
+.about-g{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}
+.a-visual{position:relative}
+/* stacked images */
+.a-img-main{
+  position:relative;border-radius:24px;overflow:hidden;
+  aspect-ratio:3/4;
+  box-shadow:0 40px 80px rgba(0,0,0,.5)
+}
+.a-img-main img{width:100%;height:100%;object-fit:cover;filter:brightness(.85) saturate(1.1);transition:transform .9s var(--ease),filter .5s}
+.a-img-main:hover img{transform:scale(1.05);filter:brightness(.95) saturate(1.25)}
+.a-img-main::before{
+  content:'';position:absolute;inset:-2px;z-index:-1;border-radius:26px;
+  background:linear-gradient(145deg,var(--gold),transparent 50%,var(--gold-dim))
+}
+.a-img-float{
+  position:absolute;bottom:-28px;right:-28px;
+  width:170px;height:200px;border-radius:18px;overflow:hidden;
+  border:3px solid var(--g1);
+  box-shadow:0 24px 60px rgba(0,0,0,.5)
+}
+.a-img-float img{width:100%;height:100%;object-fit:cover}
+.a-chip{
+  position:absolute;top:24px;left:-28px;
+  background:var(--g3);border:1px solid var(--w06);
+  border-radius:14px;padding:14px 18px;
+  display:flex;align-items:center;gap:12px;
+  box-shadow:0 14px 40px rgba(0,0,0,.4)
+}
+.a-chip-icon{width:38px;height:38px;border-radius:11px;background:var(--ga12);border:1px solid var(--ga25);display:grid;place-items:center;font-size:1rem;flex-shrink:0}
+.a-chip-v{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;color:var(--gold)}
+.a-chip-l{font-size:.68rem;color:var(--w35);margin-top:2px}
+.a-badge{
+  position:absolute;top:50%;right:-24px;transform:translateY(-50%);
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  border-radius:99px;padding:10px 18px;
+  font-family:'Syne',sans-serif;font-size:.66rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--g0);
+  writing-mode:vertical-rl;
+  box-shadow:0 8px 28px rgba(200,168,75,.4)
+}
+
+.a-feats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:34px}
+.a-feat{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:15px;border-radius:14px;background:var(--w03);border:1px solid var(--w06);
+  transition:background .3s,border-color .3s,transform .3s
+}
+.a-feat:hover{background:var(--ga06);border-color:var(--ga25);transform:translateY(-2px)}
+.a-feat-ic{width:34px;height:34px;border-radius:10px;background:var(--ga12);border:1px solid rgba(200,168,75,.18);display:grid;place-items:center;font-size:.9rem;flex-shrink:0}
+.a-feat-name{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;margin-bottom:2px}
+.a-feat-sub{font-size:.7rem;color:var(--w35);line-height:1.5}
+
+/* ─────────────────────────────────────────
+   PROGRAMS
+───────────────────────────────────────── */
+#programs{background:var(--g0)}
+.prog-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:24px}
+.prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.p-card{
+  position:relative;border-radius:22px;overflow:hidden;cursor:pointer;
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease)
+}
+.p-card:hover{transform:translateY(-12px) scale(1.015);box-shadow:0 50px 90px rgba(0,0,0,.7)}
+.p-img{width:100%;height:360px;object-fit:cover;transition:transform .7s var(--ease),filter .5s}
+.p-card:hover .p-img{transform:scale(1.12);filter:brightness(.65) saturate(1.2)}
+.p-over{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 25%,rgba(4,4,5,.98) 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:26px 22px
+}
+.p-num{font-family:'Syne',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.p-title{font-family:'Syne',sans-serif;font-size:.92rem;font-weight:700;line-height:1.3;margin-bottom:8px}
+.p-desc{
+  font-size:.74rem;color:var(--w60);line-height:1.65;
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .45s var(--ease),opacity .4s
+}
+.p-card:hover .p-desc{max-height:100px;opacity:1}
+.p-arr{
+  width:34px;height:34px;border-radius:50%;
+  border:1.5px solid rgba(200,168,75,.4);
+  display:inline-grid;place-items:center;
+  color:var(--gold);font-size:.8rem;margin-top:14px;
+  transition:background .3s,transform .35s var(--spring)
+}
+.p-card:hover .p-arr{background:var(--gold);color:var(--g0);transform:rotate(45deg)}
+
+/* ─────────────────────────────────────────
+   HORIZONTAL SCROLL GALLERY
+───────────────────────────────────────── */
+#hgallery{background:var(--g1);padding:100px 0}
+.hg-head{max-width:1100px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;flex-wrap:wrap;gap:20px}
+.hg-scroll-wrap{overflow-x:auto;padding:0 32px 24px;scrollbar-width:thin;scrollbar-color:var(--gold) var(--g3)}
+.hg-scroll-wrap::-webkit-scrollbar{height:3px}
+.hg-scroll-wrap::-webkit-scrollbar-track{background:var(--g3)}
+.hg-scroll-wrap::-webkit-scrollbar-thumb{background:var(--gold);border-radius:99px}
+.hg-track{display:flex;gap:16px;width:max-content}
+.hg-item{
+  position:relative;width:clamp(240px,30vw,380px);
+  border-radius:20px;overflow:hidden;flex-shrink:0;cursor:pointer
+}
+.hg-item img{
+  width:100%;height:clamp(260px,36vw,420px);object-fit:cover;
+  transition:transform .6s var(--ease),filter .4s;filter:brightness(.8)
+}
+.hg-item:hover img{transform:scale(1.07);filter:brightness(.95)}
+.hg-cap{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:20px 20px 22px;
+  background:linear-gradient(transparent,rgba(4,4,5,.9));
+  font-family:'Syne',sans-serif
+}
+.hg-cap .t{font-size:.82rem;font-weight:700;margin-bottom:3px}
+.hg-cap .s{font-size:.68rem;color:var(--w60)}
+.drag-hint{
+  display:flex;align-items:center;gap:8px;
+  font-family:'Syne',sans-serif;font-size:.65rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--w35)
+}
+
+/* ─────────────────────────────────────────
+   NEWS
+───────────────────────────────────────── */
+#news{background:var(--cream)}
+.news-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:50px;flex-wrap:wrap;gap:24px}
+.n-grid{display:grid;grid-template-columns:1.45fr 1fr;grid-template-rows:auto auto;gap:20px}
+.n-card{border-radius:22px;overflow:hidden;background:var(--w100);box-shadow:0 4px 32px rgba(0,0,0,.07);cursor:pointer;transition:transform .4s var(--ease),box-shadow .4s}
+.n-card:hover{transform:translateY(-8px);box-shadow:0 28px 70px rgba(0,0,0,.15)}
+.n-card.feat{grid-row:span 2}
+.n-img-w{position:relative;overflow:hidden}
+.n-card.feat .n-img-w{height:280px}
+.n-card:not(.feat) .n-img-w{height:190px}
+.n-img-w img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.n-card:hover .n-img-w img{transform:scale(1.08)}
+.n-cat{
+  position:absolute;top:14px;left:14px;
+  background:var(--gold);color:var(--g0);
+  font-family:'Syne',sans-serif;font-size:.6rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 12px;border-radius:99px
+}
+.n-body{padding:24px 26px}
+.n-meta{font-size:.7rem;color:#aaa;display:flex;gap:8px;margin-bottom:10px}
+.n-title{font-family:'Syne',sans-serif;font-weight:700;color:var(--g0);line-height:1.4;margin-bottom:10px}
+.n-card.feat .n-title{font-size:1.12rem}
+.n-card:not(.feat) .n-title{font-size:.88rem}
+.n-exc{font-size:.8rem;color:rgba(4,4,5,.55);line-height:1.75;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.n-link{
+  display:inline-flex;align-items:center;gap:6px;margin-top:14px;
+  font-family:'Syne',sans-serif;font-size:.68rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:#b8860b;transition:gap .3s
+}
+.n-link:hover{gap:10px}
+
+/* ─────────────────────────────────────────
+   COACHES
+───────────────────────────────────────── */
+#coaches{background:var(--g0)}
+.cch-head{text-align:center;max-width:600px;margin:0 auto 60px}
+.cch-head .s-p{margin:0 auto;text-align:center}
+.cch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.cch-card{
+  border-radius:22px;overflow:hidden;background:var(--g2);
+  border:1px solid var(--w06);
+  transition:border-color .4s,transform .4s var(--ease),box-shadow .4s
+}
+.cch-card:hover{border-color:var(--ga25);transform:translateY(-8px);box-shadow:0 32px 70px rgba(0,0,0,.5)}
+.cch-img{position:relative;overflow:hidden;height:300px}
+.cch-img img{width:100%;height:100%;object-fit:cover;object-position:top;filter:brightness(.85) saturate(.9);transition:transform .7s var(--ease),filter .4s}
+.cch-card:hover .cch-img img{transform:scale(1.06);filter:brightness(.95) saturate(1)}
+.cch-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(transparent 50%,rgba(4,4,5,.95) 100%)
+}
+.cch-ov{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:20px;z-index:2
+}
+.cch-role{
+  display:inline-block;
+  background:var(--ga12);border:1px solid var(--ga25);
+  font-family:'Syne',sans-serif;font-size:.6rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--gold);
+  padding:4px 12px;border-radius:99px;margin-bottom:8px
+}
+.cch-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700}
+.cch-body{padding:20px 22px}
+.cch-desc{font-size:.8rem;color:var(--w60);line-height:1.7;margin-bottom:16px}
+.cch-tags{display:flex;gap:6px;flex-wrap:wrap}
+.cch-tag{
+  font-family:'Syne',sans-serif;font-size:.6rem;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  background:var(--w06);border:1px solid var(--w06);
+  padding:4px 10px;border-radius:99px;color:var(--w60)
+}
+
+/* ─────────────────────────────────────────
+   TESTIMONIALS
+───────────────────────────────────────── */
+#testi{background:var(--g1)}
+.testi-wrap{display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:center}
+.testi-left{}
+.t-img-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.t-img{border-radius:18px;overflow:hidden}
+.t-img img{width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(.75) saturate(1.1);transition:filter .4s}
+.t-img:hover img{filter:brightness(.9) saturate(1.3)}
+.t-img:first-child{margin-top:28px}
+.t-img:nth-child(2){margin-top:-28px;grid-row:span 2}
+
+.t-slider{position:relative;min-height:280px}
+.t-slide{display:none;opacity:0;transform:translateY(16px);transition:opacity .5s var(--ease),transform .5s}
+.t-slide.on{display:block;opacity:1;transform:translateY(0)}
+.t-q{font-size:2.8rem;font-family:Georgia,serif;color:var(--gold);opacity:.25;line-height:.8;margin-bottom:14px}
+.t-stars{display:flex;gap:3px;color:var(--gold);font-size:.78rem;margin-bottom:16px}
+.t-txt{font-size:.92rem;color:var(--w70);line-height:1.85;margin-bottom:28px;font-style:italic}
+.t-auth{display:flex;align-items:center;gap:14px}
+.t-av{
+  width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:grid;place-items:center;
+  font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--g0)
+}
+.t-name{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700}
+.t-role{font-size:.72rem;color:var(--gold);margin-top:2px}
+.t-nav{display:flex;gap:10px;margin-top:32px;align-items:center}
+.t-btn{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--w06);border:1px solid var(--w12);
+  display:grid;place-items:center;color:var(--w80);font-size:.9rem;cursor:pointer;
+  transition:background .3s,border-color .3s,transform .25s var(--spring)
+}
+.t-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--g0);transform:scale(1.1)}
+.t-pips{display:flex;gap:7px;align-items:center}
+.t-pip{width:6px;height:6px;border-radius:50%;background:var(--w12);cursor:pointer;transition:background .3s,width .3s}
+.t-pip.on{background:var(--gold);width:22px;border-radius:99px}
+
+/* ─────────────────────────────────────────
+   WHY
+───────────────────────────────────────── */
+#why{background:var(--g0)}
+.why-head{text-align:center;max-width:600px;margin:0 auto 66px}
+.why-head .s-p{margin:0 auto;text-align:center}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.w-card{
+  padding:36px 28px;border-radius:22px;
+  background:var(--w03);border:1px solid var(--w06);
+  position:relative;overflow:hidden;
+  transition:transform .4s var(--ease),border-color .4s,background .4s
+}
+.w-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transition:transform .5s var(--ease);transform-origin:left
+}
+.w-card:hover{transform:translateY(-6px);border-color:var(--ga25);background:var(--ga06)}
+.w-card:hover::before{transform:scaleX(1)}
+.w-ic{
+  width:56px;height:56px;border-radius:16px;
+  background:linear-gradient(135deg,rgba(200,168,75,.15),rgba(200,168,75,.04));
+  border:1px solid rgba(200,168,75,.18);
+  display:grid;place-items:center;font-size:1.4rem;margin-bottom:22px;
+  transition:background .3s,transform .4s var(--spring)
+}
+.w-card:hover .w-ic{background:linear-gradient(135deg,rgba(200,168,75,.3),rgba(200,168,75,.1));transform:scale(1.1) rotate(-4deg)}
+.w-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:10px}
+.w-text{font-size:.82rem;color:var(--w35);line-height:1.78}
+
+/* ─────────────────────────────────────────
+   CONTACT / CTA
+───────────────────────────────────────── */
+#contact{background:var(--g1)}
+.contact-g{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:flex-start}
+.contact-info{}
+.c-map{
+  width:100%;height:280px;border-radius:20px;overflow:hidden;margin-top:32px;
+  border:1px solid var(--w06)
+}
+.c-map iframe{width:100%;height:100%;border:none;filter:grayscale(1) invert(1) hue-rotate(180deg)}
+.contact-details{margin-top:32px;display:flex;flex-direction:column;gap:16px}
+.cd-row{display:flex;align-items:flex-start;gap:14px}
+.cd-icon{
+  width:40px;height:40px;border-radius:12px;flex-shrink:0;
+  background:var(--ga12);border:1px solid var(--ga25);
+  display:grid;place-items:center;font-size:1rem
+}
+.cd-label{font-family:'Syne',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.cd-val{font-size:.85rem;color:var(--w70);line-height:1.6}
+
+.contact-form-wrap{}
+.c-form{display:flex;flex-direction:column;gap:14px}
+.c-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.c-field{display:flex;flex-direction:column;gap:6px}
+.c-label{font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--w35)}
+.c-input,.c-textarea{
+  background:var(--w06);border:1px solid var(--w12);
+  border-radius:12px;padding:14px 16px;
+  font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--w100);
+  outline:none;transition:border-color .3s,background .3s;width:100%;resize:vertical
+}
+.c-input::placeholder,.c-textarea::placeholder{color:var(--w35)}
+.c-input:focus,.c-textarea:focus{border-color:var(--gold);background:rgba(200,168,75,.05)}
+.c-textarea{min-height:130px}
+.c-submit{
+  font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--g0);padding:16px 36px;border-radius:99px;
+  cursor:pointer;transition:box-shadow .3s,transform .3s var(--spring);
+  border:none;display:inline-flex;align-items:center;gap:8px;width:fit-content
+}
+.c-submit:hover{box-shadow:0 12px 40px rgba(200,168,75,.45);transform:translateY(-3px)}
+
+/* ─────────────────────────────────────────
+   JOIN CTA BAND
+───────────────────────────────────────── */
+#cta-band{position:relative;overflow:hidden}
+.cta-bg{
+  position:absolute;inset:0;
+  background:url('https://acacricketacademy.com/image/training/Team.jpg') center/cover no-repeat;
+  filter:brightness(.25) saturate(.4);
+  transform:scale(1.04)
+}
+.cta-over{position:absolute;inset:0;background:linear-gradient(135deg,rgba(4,4,5,.92) 0%,rgba(200,168,75,.1) 100%)}
+.cta-noise{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")
+}
+.cta-inner{
+  position:relative;z-index:2;
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:60px;padding:90px 32px;flex-wrap:wrap
+}
+.cta-tag{font-family:'Syne',sans-serif;font-size:.63rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.cta-h{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(1.9rem,3.5vw,2.9rem);
+  line-height:1.08;letter-spacing:-.025em;margin-bottom:14px
+}
+.cta-p{font-size:.9rem;color:var(--w70);line-height:1.75;max-width:500px}
+.cta-acts{display:flex;flex-direction:column;gap:10px;flex-shrink:0;min-width:190px}
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+footer{background:var(--g0);border-top:1px solid var(--w06)}
+.ft-top{
+  display:grid;grid-template-columns:1.9fr 1fr 1fr 1.2fr;
+  gap:50px;max-width:1100px;margin:0 auto;
+  padding:80px 32px 60px;
+  border-bottom:1px solid var(--w06)
+}
+.ft-logo{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:var(--w100);display:block;margin-bottom:16px}
+.ft-logo .g{color:var(--gold)}
+.ft-desc{font-size:.82rem;color:var(--w35);line-height:1.85;margin-bottom:26px}
+.ft-soc{display:flex;gap:8px}
+.ft-sc{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--w06);border:1px solid var(--w06);
+  display:grid;place-items:center;color:var(--w35);font-size:.82rem;
+  transition:background .3s,color .3s,border-color .3s,transform .25s var(--spring)
+}
+.ft-sc:hover{background:var(--gold);color:var(--g0);border-color:var(--gold);transform:translateY(-3px)}
+.ft-h{font-family:'Syne',sans-serif;font-size:.63rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.ft-ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.ft-ul a{font-size:.82rem;color:var(--w35);transition:color .25s,padding-left .25s}
+.ft-ul a:hover{color:var(--w100);padding-left:5px}
+.ft-crow{display:flex;align-items:flex-start;gap:10px;font-size:.8rem;color:var(--w35);margin-bottom:12px;line-height:1.65}
+.ft-crow .ico{color:var(--gold);flex-shrink:0;margin-top:1px}
+
+/* newsletter */
+.ft-news-form{display:flex;gap:8px;margin-top:16px}
+.ft-news-input{
+  flex:1;background:var(--w06);border:1px solid var(--w12);border-radius:10px;
+  padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:.82rem;color:var(--w100);outline:none;
+  transition:border-color .3s
+}
+.ft-news-input::placeholder{color:var(--w35)}
+.ft-news-input:focus{border-color:var(--gold)}
+.ft-news-btn{
+  background:var(--gold);color:var(--g0);
+  font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;
+  padding:11px 16px;border-radius:10px;cursor:pointer;
+  border:none;white-space:nowrap;transition:background .3s,transform .25s
+}
+.ft-news-btn:hover{background:var(--gold2);transform:scale(1.04)}
+
+.ft-bot{
+  max-width:1100px;margin:0 auto;padding:20px 32px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:12px;
+  font-size:.72rem;color:rgba(255,255,255,.2)
+}
+.ft-bot a{color:var(--gold);transition:color .25s}
+.ft-bot a:hover{color:var(--gold2)}
+
+/* ─────────────────────────────────────────
+   BACK TO TOP
+───────────────────────────────────────── */
+#btt{
+  position:fixed;bottom:28px;right:28px;z-index:700;
+  width:46px;height:46px;border-radius:14px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--g0);font-size:.95rem;
+  display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 8px 28px rgba(200,168,75,.35);
+  opacity:0;transform:translateY(12px);pointer-events:none;
+  transition:opacity .35s,transform .35s var(--spring)
+}
+#btt.on{opacity:1;transform:translateY(0);pointer-events:all}
+#btt:hover{transform:translateY(-3px) scale(1.08)}
+
+/* ─────────────────────────────────────────
+   TOAST
+───────────────────────────────────────── */
+#toast{
+  position:fixed;bottom:90px;right:28px;z-index:700;
+  background:var(--g3);border:1px solid var(--ga25);
+  border-radius:14px;padding:14px 20px;
+  display:flex;align-items:center;gap:10px;
+  font-size:.82rem;color:var(--w80);
+  box-shadow:0 16px 50px rgba(0,0,0,.5);
+  opacity:0;transform:translateY(10px);pointer-events:none;
+  transition:opacity .35s,transform .35s var(--spring)
+}
+#toast.on{opacity:1;transform:translateY(0)}
+#toast .t-ic{color:var(--gold);font-size:1.1rem}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media(max-width:1024px){
+  .about-g,.testi-wrap,.contact-g{grid-template-columns:1fr;gap:48px}
+  .a-visual{order:-1}
+  .a-img-float{display:none}
+  .a-badge{display:none}
+  .prog-grid{grid-template-columns:repeat(2,1fr)}
+  .cch-grid{grid-template-columns:repeat(2,1fr)}
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .ft-top{grid-template-columns:1fr 1fr;gap:36px}
+  .cta-inner{grid-template-columns:1fr}
+  .h-stats{gap:28px}
+  .n-grid{grid-template-columns:1fr}
+  .n-card.feat{grid-row:span 1}
+}
+@media(max-width:768px){
+  .n-links{display:none}
+  .n-links.open{
+    display:flex;flex-direction:column;
+    position:fixed;inset:0;background:rgba(4,4,5,.97);
+    align-items:center;justify-content:center;gap:24px;z-index:600;padding:24px
+  }
+  .n-links.open a{font-size:1.3rem;padding:14px 24px}
+  #nav .n-cta{display:none}
+  .ham{display:flex}
+  .prog-grid{grid-template-columns:1fr}
+  .cch-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .c-row{grid-template-columns:1fr}
+  .ft-top{grid-template-columns:1fr}
+  .t-img-col{display:none}
+  .testi-wrap{grid-template-columns:1fr}
+  .h-content{padding:150px 20px 80px}
+  .wrap{padding:0 20px}
+  body{cursor:auto}
+  a,button{cursor:pointer}
+  #cursor-dot,#cursor-ring{display:none}
+}
+@media(max-width:480px){
+  .h-btns,.cta-acts{flex-direction:column;align-items:flex-start}
+  .cta-acts{min-width:unset}
+  .h-stats{flex-direction:column;gap:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER ─────────────────────────────── -->
+<div id="loader">
+  <div class="loader-ball">
+    <svg viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="27" cy="27" r="25" stroke="rgba(200,168,75,.2)" stroke-width="2"/>
+      <circle cx="27" cy="27" r="25" stroke="url(#lg)" stroke-width="2" stroke-linecap="round" stroke-dasharray="80 80" stroke-dashoffset="0"/>
+      <defs>
+        <linearGradient id="lg" x1="0" y1="0" x2="54" y2="54" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#c8a84b"/><stop offset="1" stop-color="#f5dfa0"/>
+        </linearGradient>
+      </defs>
+      <!-- cricket ball seam lines -->
+      <path d="M14 27 Q27 17 40 27" stroke="rgba(200,168,75,.5)" stroke-width="1.5" fill="none"/>
+      <path d="M14 27 Q27 37 40 27" stroke="rgba(200,168,75,.5)" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="lbar"></div></div>
+  <div class="loader-text">Loading ACA Cricket Academy</div>
+</div>
+
+<!-- CURSOR ─────────────────────────────── -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- PROGRESS ───────────────────────────── -->
+<div id="progress"></div>
+
+<!-- TICKER ─────────────────────────────── -->
+<div id="ticker" aria-live="polite">
+  <div class="t-wrap">
+    <span>Grand Inauguration — ACACA Permanent Campus — 16 Aug 2025</span>
+    <span>Felicitation: Sri Devajit Saikia, Secretary BCCI — Felicitated by ACA Cricket Academy</span>
+    <span>Selections Open — High-Performance Advance Coaching Program 2025–26</span>
+    <span>Orientation Program — 23 Aug 2025 — Fulung, North Guwahati</span>
+    <span>3,000 players screened · 40 elite places · BCCI Affiliated</span>
+    <span>Grand Inauguration — ACACA Permanent Campus — 16 Aug 2025</span>
+    <span>Felicitation: Sri Devajit Saikia, Secretary BCCI — Felicitated by ACA Cricket Academy</span>
+    <span>Selections Open — High-Performance Advance Coaching Program 2025–26</span>
+    <span>Orientation Program — 23 Aug 2025 — Fulung, North Guwahati</span>
+    <span>3,000 players screened · 40 elite places · BCCI Affiliated</span>
+  </div>
+</div>
+
+<!-- NAV ─────────────────────────────────── -->
+<nav id="nav">
+  <a class="n-logo" href="#hero"><span class="g">ACA</span>&nbsp;Cricket</a>
+
+  <ul class="n-links" id="nmenu">
+    <li><a href="#hero" class="act">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Training</a></li>
+    <li><a href="#hgallery">Gallery</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#coaches">Coaches</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <div style="display:flex;align-items:center;gap:8px;padding-right:4px">
+    <a href="#contact" class="n-cta">Register Now</a>
+    <div class="ham" id="ham" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO ────────────────────────────────── -->
+<section id="hero" class="sec">
+  <div class="h-bg" id="hbg"></div>
+  <div class="h-grid"></div>
+  <div class="h-orb h-orb1"></div>
+  <div class="h-orb h-orb2"></div>
+  <div class="h-noise"></div>
+
+  <!-- floating BCCI badge -->
+  <div class="h-badge">
+    <div class="h-badge-icon">🏅</div>
+    <div>
+      <div class="h-badge-t1">BCCI Affiliated</div>
+      <div class="h-badge-t2">Assam Cricket Association</div>
+    </div>
+  </div>
+
+  <div class="h-content">
+    <div class="h-eyebrow">
+      <div class="pulse"></div>
+      Since 2020 · Fulung Campus · North Guwahati, Assam
+    </div>
+
+    <h1 class="h-title">
+      <span class="h-line"><span>Train.</span></span>
+      <span class="h-line"><span>Compete.</span></span>
+      <span class="h-line"><span class="h-stroke">Excel.</span></span>
+    </h1>
+
+    <p class="h-sub">Assam Cricket Academy — a BCCI-affiliated centre of excellence. Transforming budding talent into professional cricketers through world-class coaching, data-driven analysis, and holistic development.</p>
+
+    <div class="h-btns">
+      <a href="#programs" class="btn btn-g arr">Explore Programs</a>
+      <a href="#about" class="btn btn-o">About ACA</a>
+    </div>
+
+    <div class="h-stats">
+      <div>
+        <div class="h-stat-val" data-count="3000">0</div>
+        <div class="h-stat-lbl">Players Screened</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,.08);align-self:stretch"></div>
+      <div>
+        <div class="h-stat-val" data-count="40">0</div>
+        <div class="h-stat-lbl">Elite Places</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,.08);align-self:stretch"></div>
+      <div>
+        <div class="h-stat-val">12<small style="font-size:1rem;color:var(--w35)">mo</small></div>
+        <div class="h-stat-lbl">Academy Program</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,.08);align-self:stretch"></div>
+      <div>
+        <div class="h-stat-val">4</div>
+        <div class="h-stat-lbl">Training Streams</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="h-scroll">
+    <div class="h-mouse"></div>
+    <span class="h-scroll-lbl">Scroll to explore</span>
+  </div>
+</section>
+
+<!-- BAND ────────────────────────────────── -->
+<div id="band">
+  <div class="band-wrap">
+    <div class="b-item" data-r data-d="1"><div class="b-val">BCCI</div><div class="b-lbl">Affiliated</div></div>
+    <div class="b-div"></div>
+    <div class="b-item" data-r data-d="2"><div class="b-val">4+</div><div class="b-lbl">Programs</div></div>
+    <div class="b-div"></div>
+    <div class="b-item" data-r data-d="3"><div class="b-val">2020</div><div class="b-lbl">Founded</div></div>
+    <div class="b-div"></div>
+    <div class="b-item" data-r data-d="4"><div class="b-val">ACA</div><div class="b-lbl">Permanent Campus</div></div>
+    <div class="b-div"></div>
+    <div class="b-item" data-r data-d="5"><div class="b-val">Assam</div><div class="b-lbl">Cricket Association</div></div>
+  </div>
+</div>
+
+<!-- ABOUT ───────────────────────────────── -->
+<section id="about" class="sec py">
+  <div class="wrap">
+    <div class="about-g">
+
+      <div class="a-visual" data-r="left">
+        <div class="a-chip">
+          <div class="a-chip-icon">🏆</div>
+          <div>
+            <div class="a-chip-v">BCCI Affiliated</div>
+            <div class="a-chip-l">Assam Cricket Association</div>
+          </div>
+        </div>
+
+        <div class="a-img-main">
+          <img src="https://acacricketacademy.com/image/Banner-Image_ACA-Stadium.png"
+               onerror="this.src='https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=900&q=85'"
+               alt="ACA Permanent Campus"/>
+        </div>
+
+        <div class="a-img-float">
+          <img src="https://acacricketacademy.com/image/training/Team.jpg"
+               onerror="this.src='https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&q=80'"
+               alt="ACA Team"/>
+        </div>
+
+        <div class="a-badge">Est. 2020</div>
+      </div>
+
+      <div data-r="right">
+        <span class="s-tag">About the Academy</span>
+        <h2 class="s-h2">A Centre of<br/><em>Excellence</em></h2>
+        <p class="s-p">Operating since 2020, ACA has designed modern cricket programs built on the latest techniques — an all-inclusive platform for budding talents through to aspiring professionals, all with a clear pathway to greatness.</p>
+        <p class="s-p" style="margin-top:12px">Proudly affiliated with the Assam Cricket Association (BCCI), our permanent Fulung Campus in North Guwahati represents a historic milestone for cricket in Assam, inaugurated in August 2025 by Hon. CM Dr. Himanta Biswa Sarma.</p>
+
+        <div class="a-feats">
+          <div class="a-feat" data-r data-d="1">
+            <div class="a-feat-ic">🏏</div>
+            <div><div class="a-feat-name">BCCI Coaches</div><div class="a-feat-sub">Certified training staff</div></div>
+          </div>
+          <div class="a-feat" data-r data-d="2">
+            <div class="a-feat-ic">🏟️</div>
+            <div><div class="a-feat-name">World-Class Facilities</div><div class="a-feat-sub">Nets, pitches, gym</div></div>
+          </div>
+          <div class="a-feat" data-r data-d="3">
+            <div class="a-feat-ic">💪</div>
+            <div><div class="a-feat-name">Fitness & S&C</div><div class="a-feat-sub">Elite conditioning</div></div>
+          </div>
+          <div class="a-feat" data-r data-d="4">
+            <div class="a-feat-ic">📊</div>
+            <div><div class="a-feat-name">Video Analysis</div><div class="a-feat-sub">Data-driven feedback</div></div>
+          </div>
+          <div class="a-feat" data-r data-d="5">
+            <div class="a-feat-ic">🎓</div>
+            <div><div class="a-feat-name">Education Balance</div><div class="a-feat-sub">Holistic development</div></div>
+          </div>
+          <div class="a-feat" data-r data-d="6">
+            <div class="a-feat-ic">🌟</div>
+            <div><div class="a-feat-name">Pro Pathway</div><div class="a-feat-sub">State & national track</div></div>
+          </div>
+        </div>
+
+        <div style="margin-top:36px;display:flex;gap:14px;flex-wrap:wrap">
+          <a href="#programs" class="btn btn-g arr">Explore Programs</a>
+          <a href="#contact" class="btn btn-o">Get In Touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS ────────────────────────────── -->
+<section id="programs" class="sec py" style="background:var(--g0)">
+  <div class="wrap">
+    <div class="prog-header">
+      <div data-r>
+        <span class="s-tag">Training Programs</span>
+        <h2 class="s-h2">Choose Your <em>Path</em></h2>
+        <p class="s-p">12-month academy programme · open & rigorous selection · 3,000 players screened for 40 places</p>
+      </div>
+      <a href="#contact" class="btn btn-o" data-r data-d="2">Apply Now →</a>
+    </div>
+
+    <div class="prog-grid">
+      <div class="p-card" data-r data-d="1">
+        <img class="p-img"
+          src="https://acacricketacademy.com/image/training/img1.jpg"
+          onerror="this.src='https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=700&q=80'"
+          alt="Residential Program" loading="lazy"/>
+        <div class="p-over">
+          <div class="p-num">Program — 01</div>
+          <h3 class="p-title">Residential Training Program</h3>
+          <p class="p-desc">An immersive full-time residential experience with structured daily routines, professional coaching and competitive fixtures throughout the year.</p>
+          <div class="p-arr">→</div>
+        </div>
+      </div>
+
+      <div class="p-card" data-r data-d="2">
+        <img class="p-img"
+          src="https://acacricketacademy.com/image/training/Batting1.jpg"
+          onerror="this.src='https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=700&q=80'"
+          alt="High Performance" loading="lazy"/>
+        <div class="p-over">
+          <div class="p-num">Program — 02</div>
+          <h3 class="p-title">High-Performance Advance Coaching</h3>
+          <p class="p-desc">Elite-level coaching for players targeting professional careers and state-level selection, backed by data-driven analysis.</p>
+          <div class="p-arr">→</div>
+        </div>
+      </div>
+
+      <div class="p-card" data-r data-d="3">
+        <img class="p-img"
+          src="https://acacricketacademy.com/image/training/img2.jpg"
+          onerror="this.src='https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=700&q=80'"
+          alt="Personal Programs" loading="lazy"/>
+        <div class="p-over">
+          <div class="p-num">Program — 03</div>
+          <h3 class="p-title">Personal &amp; Individual Programs</h3>
+          <p class="p-desc">Tailored one-on-one sessions designed around each player's specific strengths, weaknesses and individual goals.</p>
+          <div class="p-arr">→</div>
+        </div>
+      </div>
+
+      <div class="p-card" data-r data-d="4">
+        <img class="p-img"
+          src="https://acacricketacademy.com/image/training/img3.jpeg"
+          onerror="this.src='https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=700&q=80'"
+          alt="Pay and Play" loading="lazy"/>
+        <div class="p-over">
+          <div class="p-num">Program — 04</div>
+          <h3 class="p-title">Pay &amp; Play Program</h3>
+          <p class="p-desc">Flexible access to world-class training infrastructure for players who want to enjoy and sharpen their game at their own pace.</p>
+          <div class="p-arr">→</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORIZONTAL GALLERY ──────────────────── -->
+<section id="hgallery" class="sec">
+  <div class="hg-head">
+    <div data-r>
+      <span class="s-tag">Gallery</span>
+      <h2 class="s-h2">Life at <em>ACA</em></h2>
+      <p class="s-p">From the inaugural ceremony to daily training — captured in moments.</p>
+    </div>
+    <div class="drag-hint" data-r data-d="2">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M15 8l4 4-4 4"/></svg>
+      Drag to explore
+    </div>
+  </div>
+
+  <div class="hg-scroll-wrap" id="hgscroll">
+    <div class="hg-track">
+      <div class="hg-item">
+        <img src="https://acacricketacademy.com/image/ACA-Stadium.jpg"
+             onerror="this.src='https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&q=85'"
+             alt="ACA Stadium" loading="lazy"/>
+        <div class="hg-cap"><div class="t">ACA Stadium</div><div class="s">Fulung, North Guwahati</div></div>
+      </div>
+      <div class="hg-item">
+        <img src="https://acacricketacademy.com/image/Banner-Image_ACA-Stadium.png"
+             onerror="this.src='https://images.unsplash.com/photo-1471295253337-3ceaaedca402?w=800&q=85'"
+             alt="Permanent Campus" loading="lazy"/>
+        <div class="hg-cap"><div class="t">Permanent Campus</div><div class="s">Inaugurated Aug 2025</div></div>
+      </div>
+      <div class="hg-item">
+        <img src="https://acacricketacademy.com/image/Blog/b1.jpeg"
+             onerror="this.src='https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=85'"
+             alt="Grand Inauguration" loading="lazy"/>
+        <div class="hg-cap"><div class="t">Grand Inauguration</div><div class="s">16th August 2025</div></div>
+      </div>
+      <div class="hg-item">
+        <img src="https://acacricketacademy.com/image/training/Batting1.jpg"
+             onerror="this.src='https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&q=85'"
+             alt="Batting Training" loading="lazy"/>
+        <div class="hg-cap"><div class="t">Batting Training</div><div class="s">High-Performance Program</div></div>
+      </div>
+      <div class="hg-item">
+        <img src="https://acacricketacademy.com/image/training/Team.jpg"
+             onerror="this.src='https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=85'"
+             alt="ACA Team" loading="lazy"/>
+        <div class="hg-cap"><div class="t">ACA Squad</div><div class="s">2025 Season</div></div>
+      </div>
+      <div class="hg-item">
+        <img src="https://acacricketacademy.com/image/Blog/b3.jpeg"
+             onerror="this.src='https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=800&q=85'"
+             alt="Orientation" loading="lazy"/>
+        <div class="hg-cap"><div class="t">Orientation Day</div><div class="s">23 August 2025</div></div>
+      </div>
+      <div class="hg-item">
+        <img src="https://acacricketacademy.com/image/Blog/b2.jpeg"
+             onerror="this.src='https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&q=85'"
+             alt="Education Program" loading="lazy"/>
+        <div class="hg-cap"><div class="t">Holistic Education</div><div class="s">Cricket + Academics</div></div>
+      </div>
+      <div class="hg-item">
+        <img src="https://acacricketacademy.com/image/training/img1.jpg"
+             onerror="this.src='https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=800&q=85'"
+             alt="Training Drills" loading="lazy"/>
+        <div class="hg-cap"><div class="t">Training Drills</div><div class="s">Residential Program</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS ────────────────────────────────── -->
+<section id="news" class="sec py" style="background:var(--cream)">
+  <div class="wrap">
+    <div class="news-head">
+      <div data-r>
+        <span class="s-tag dk">Latest News</span>
+        <h2 class="s-h2 dk" style="color:var(--g0)">Stay <em>Updated</em></h2>
+        <p class="s-p" style="color:rgba(4,4,5,.5)">Events, achievements, and stories from ACA &amp; the cricket world.</p>
+      </div>
+      <a href="https://acacricketacademy.com/news" class="btn btn-dk" data-r data-d="2" style="font-size:.72rem;padding:12px 22px">All Articles →</a>
+    </div>
+
+    <div class="n-grid">
+      <div class="n-card feat" data-r>
+        <div class="n-img-w">
+          <img src="https://acacricketacademy.com/image/Blog/b1.jpeg"
+               onerror="this.src='https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=900&q=85'"
+               alt="Campus Inauguration" loading="lazy"/>
+          <span class="n-cat">Achievements</span>
+        </div>
+        <div class="n-body">
+          <div class="n-meta"><span>16 Aug 2025</span><span>·</span><span>Admin</span></div>
+          <h3 class="n-title">Grand Inauguration of the ACACA Permanent Campus — 16th August 2025</h3>
+          <p class="n-exc">A proud moment as we inaugurate the ACACA Permanent Campus in the gracious presence of Hon'ble CM Dr. Himanta Biswa Sarma, BCCI Secretary Devajit Lon Saikia, Chairman Rajendra Singh, and dignitaries from the Assam Cricket Association. A historic milestone for cricket in Assam.</p>
+          <a href="https://acacricketacademy.com/news" class="n-link">Read Full Story →</a>
+        </div>
+      </div>
+
+      <div class="n-card" data-r data-d="2">
+        <div class="n-img-w">
+          <img src="https://acacricketacademy.com/image/Blog/b2.jpeg"
+               onerror="this.src='https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=700&q=80'"
+               alt="Holistic Vision" loading="lazy"/>
+          <span class="n-cat">Training</span>
+        </div>
+        <div class="n-body">
+          <div class="n-meta"><span>16 Aug 2025</span></div>
+          <h3 class="n-title">ACACA's Holistic Vision — Cricketing Excellence with Equal Focus on Education</h3>
+          <p class="n-exc">ACA's balanced approach ensures players grow both on and off the field, fostering the complete cricketer.</p>
+          <a href="https://acacricketacademy.com/news" class="n-link">Read More →</a>
+        </div>
+      </div>
+
+      <div class="n-card" data-r data-d="3">
+        <div class="n-img-w">
+          <img src="https://acacricketacademy.com/image/Blog/b3.jpeg"
+               onerror="this.src='https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=700&q=80'"
+               alt="Orientation" loading="lazy"/>
+          <span class="n-cat">Achievements</span>
+        </div>
+        <div class="n-body">
+          <div class="n-meta"><span>23 Aug 2025</span></div>
+          <h3 class="n-title">Orientation Program — 23 Aug 2025 | ACACA Fulung, North Guwahati</h3>
+          <p class="n-exc">A new journey begins for our budding cricketers, with BCCI Secretary in attendance to inspire the next generation.</p>
+          <a href="https://acacricketacademy.com/news" class="n-link">Read More →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COACHES ─────────────────────────────── -->
+<section id="coaches" class="sec py" style="background:var(--g0)">
+  <div class="wrap">
+    <div class="cch-head" data-r>
+      <span class="s-tag">Expert Coaching Staff</span>
+      <h2 class="s-h2">Meet Our <em>Coaches</em></h2>
+      <p class="s-p">BCCI-certified professionals with decades of combined experience at domestic and international level.</p>
+    </div>
+
+    <div class="cch-grid">
+      <div class="cch-card" data-r data-d="1">
+        <div class="cch-img">
+          <img src="https://acacricketacademy.com/image/training/Team.jpg"
+               onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80'"
+               alt="Head Coach" loading="lazy"/>
+          <div class="cch-ov">
+            <span class="cch-role">Head Coach</span>
+            <div class="cch-name">Chief Coaching Staff</div>
+          </div>
+        </div>
+        <div class="cch-body">
+          <p class="cch-desc">Leading ACA's holistic coaching philosophy with a focus on technical excellence, mental strength, and match awareness to develop complete cricketers.</p>
+          <div class="cch-tags">
+            <span class="cch-tag">Batting</span>
+            <span class="cch-tag">Tactics</span>
+            <span class="cch-tag">BCCI Level 3</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cch-card" data-r data-d="2">
+        <div class="cch-img">
+          <img src="https://acacricketacademy.com/image/training/Batting1.jpg"
+               onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80'"
+               alt="Batting Coach" loading="lazy"/>
+          <div class="cch-ov">
+            <span class="cch-role">Batting Coach</span>
+            <div class="cch-name">Batting Specialist</div>
+          </div>
+        </div>
+        <div class="cch-body">
+          <p class="cch-desc">Specialising in technical batting refinement, shot selection, and building a player's offensive game to perform at the highest domestic levels.</p>
+          <div class="cch-tags">
+            <span class="cch-tag">Technique</span>
+            <span class="cch-tag">Power Hitting</span>
+            <span class="cch-tag">Video Analysis</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cch-card" data-r data-d="3">
+        <div class="cch-img">
+          <img src="https://acacricketacademy.com/image/training/img1.jpg"
+               onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80'"
+               alt="Fitness Coach" loading="lazy"/>
+          <div class="cch-ov">
+            <span class="cch-role">Strength &amp; Conditioning</span>
+            <div class="cch-name">Fitness Specialist</div>
+          </div>
+        </div>
+        <div class="cch-body">
+          <p class="cch-desc">Developing the athletic base demanded by modern cricket through sport-specific conditioning, injury prevention, and performance nutrition guidance.</p>
+          <div class="cch-tags">
+            <span class="cch-tag">S&C</span>
+            <span class="cch-tag">Nutrition</span>
+            <span class="cch-tag">Injury Rehab</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:50px">
+      <a href="https://acacricketacademy.com/coaches" class="btn btn-g arr">View Full Coaching Staff</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS ────────────────────────── -->
+<section id="testi" class="sec py" style="background:var(--g1)">
+  <div class="wrap">
+    <div class="testi-wrap">
+      <div data-r="left">
+        <span class="s-tag">Testimonials</span>
+        <h2 class="s-h2">What Players<br/><em>Are Saying</em></h2>
+        <p class="s-p">From parents to state-level hopefuls — hear what the ACA experience means in their own words.</p>
+
+        <div class="t-img-col" style="margin-top:36px">
+          <div class="t-img">
+            <img src="https://acacricketacademy.com/image/training/img2.jpg"
+                 onerror="this.src='https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=500&q=80'"
+                 alt="Training" loading="lazy"/>
+          </div>
+          <div class="t-img">
+            <img src="https://acacricketacademy.com/image/training/img3.jpeg"
+                 onerror="this.src='https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&q=80'"
+                 alt="Players" loading="lazy"/>
+          </div>
+        </div>
+      </div>
+
+      <div data-r="right">
+        <div class="t-slider">
+          <div class="t-slide on">
+            <div class="t-q">"</div>
+            <div class="t-stars">★★★★★</div>
+            <p class="t-txt">ACA has transformed my child's cricket skills and confidence beyond what we ever imagined. The coaches are fantastic — structured, professional, and genuinely invested in each player's growth. Worth every bit.</p>
+            <div class="t-auth">
+              <div class="t-av">P</div>
+              <div><div class="t-name">Parent of U14 Player</div><div class="t-role">Residential Program</div></div>
+            </div>
+          </div>
+          <div class="t-slide">
+            <div class="t-q">"</div>
+            <div class="t-stars">★★★★★</div>
+            <p class="t-txt">The best academy for aspiring cricketers in the region. World-class infrastructure, brilliant coaches, and a culture that genuinely cares about every single player's future in the sport.</p>
+            <div class="t-auth">
+              <div class="t-av">S</div>
+              <div><div class="t-name">Senior Player</div><div class="t-role">High-Performance Program</div></div>
+            </div>
+          </div>
+          <div class="t-slide">
+            <div class="t-q">"</div>
+            <div class="t-stars">★★★★★</div>
+            <p class="t-txt">Great balance of skill work and fitness training. The personal coaching program completely transformed my batting technique. Highly recommended for any young cricketer serious about the game.</p>
+            <div class="t-auth">
+              <div class="t-av">U</div>
+              <div><div class="t-name">U16 Player</div><div class="t-role">Individual Program</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-nav">
+          <button class="t-btn" onclick="tPrev()" aria-label="Previous">‹</button>
+          <div class="t-pips">
+            <div class="t-pip on" onclick="tGo(0)"></div>
+            <div class="t-pip" onclick="tGo(1)"></div>
+            <div class="t-pip" onclick="tGo(2)"></div>
+          </div>
+          <button class="t-btn" onclick="tNext()" aria-label="Next">›</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE ──────────────────────────── -->
+<section id="why" class="sec py" style="background:var(--g0)">
+  <div class="wrap">
+    <div class="why-head" data-r>
+      <span class="s-tag">Why Choose ACA</span>
+      <h2 class="s-h2">The <em>ACA</em> Advantage</h2>
+      <p class="s-p">Everything you need to go from aspiring talent to elite cricketer — under one roof at Fulung Campus.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="w-card" data-r data-d="1">
+        <div class="w-ic">🏏</div>
+        <h3 class="w-title">BCCI Affiliated Coaching</h3>
+        <p class="w-text">Certified coaches trained by BCCI standards ensuring the highest quality of technical instruction and player development methodology.</p>
+      </div>
+      <div class="w-card" data-r data-d="2">
+        <div class="w-ic">🏟️</div>
+        <h3 class="w-title">State-of-the-Art Facilities</h3>
+        <p class="w-text">World-class pitches, professional nets, fully-equipped gym, video analysis rooms and on-site accommodation at Fulung Campus.</p>
+      </div>
+      <div class="w-card" data-r data-d="3">
+        <div class="w-ic">📊</div>
+        <h3 class="w-title">Data-Driven Analysis</h3>
+        <p class="w-text">Advanced video analysis and performance tracking give players measurable insights to accelerate improvement and refine technique.</p>
+      </div>
+      <div class="w-card" data-r data-d="4">
+        <div class="w-ic">🎓</div>
+        <h3 class="w-title">Holistic Development</h3>
+        <p class="w-text">ACA's vision places equal emphasis on academic performance and character development alongside cricketing excellence.</p>
+      </div>
+      <div class="w-card" data-r data-d="5">
+        <div class="w-ic">🌟</div>
+        <h3 class="w-title">Clear Pathway to Pro</h3>
+        <p class="w-text">Structured progression from grassroots through to state-level selection, backed by strong relationships within Assam Cricket.</p>
+      </div>
+      <div class="w-card" data-r data-d="6">
+        <div class="w-ic">💪</div>
+        <h3 class="w-title">Elite Fitness Training</h3>
+        <p class="w-text">Dedicated S&amp;C coaches build the athletic foundation demanded by modern professional cricket at every level.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT ─────────────────────────────── -->
+<section id="contact" class="sec py" style="background:var(--g1)">
+  <div class="wrap">
+    <div class="contact-g">
+      <div data-r="left">
+        <span class="s-tag">Get In Touch</span>
+        <h2 class="s-h2">Start Your<br/><em>Journey</em></h2>
+        <p class="s-p">Have questions about enrolment, programs or trials? We'd love to hear from you.</p>
+
+        <div class="contact-details">
+          <div class="cd-row">
+            <div class="cd-icon">📍</div>
+            <div>
+              <div class="cd-label">Address</div>
+              <div class="cd-val">Fulung, North Guwahati,<br/>Assam, India</div>
+            </div>
+          </div>
+          <div class="cd-row">
+            <div class="cd-icon">✉️</div>
+            <div>
+              <div class="cd-label">Email</div>
+              <div class="cd-val"><a href="mailto:info@acacricketacademy.com" style="color:var(--gold)">info@acacricketacademy.com</a></div>
+            </div>
+          </div>
+          <div class="cd-row">
+            <div class="cd-icon">🏅</div>
+            <div>
+              <div class="cd-label">Affiliation</div>
+              <div class="cd-val">BCCI Affiliated<br/>Assam Cricket Association</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-map">
+          <iframe
+            src="https://maps.google.com/maps?q=North+Guwahati+Assam+India&output=embed&z=12"
+            title="ACA Location"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+
+      <div data-r="right">
+        <div style="background:var(--g3);border:1px solid var(--w06);border-radius:24px;padding:40px">
+          <h3 style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:8px">Register Your Interest</h3>
+          <p style="font-size:.83rem;color:var(--w60);margin-bottom:28px;line-height:1.7">Fill out the form and our admissions team will reach out within 48 hours.</p>
+          <form class="c-form" onsubmit="submitForm(event)">
+            <div class="c-row">
+              <div class="c-field">
+                <label class="c-label">First Name</label>
+                <input class="c-input" type="text" placeholder="Your first name" required/>
+              </div>
+              <div class="c-field">
+                <label class="c-label">Last Name</label>
+                <input class="c-input" type="text" placeholder="Your last name" required/>
+              </div>
+            </div>
+            <div class="c-field">
+              <label class="c-label">Email Address</label>
+              <input class="c-input" type="email" placeholder="your@email.com" required/>
+            </div>
+            <div class="c-field">
+              <label class="c-label">Phone</label>
+              <input class="c-input" type="tel" placeholder="+91 XXXXX XXXXX"/>
+            </div>
+            <div class="c-field">
+              <label class="c-label">Program of Interest</label>
+              <select class="c-input" style="appearance:none">
+                <option value="">Select a program…</option>
+                <option>Residential Training Program</option>
+                <option>High-Performance Advance Coaching</option>
+                <option>Personal &amp; Individual Programs</option>
+                <option>Pay &amp; Play Program</option>
+              </select>
+            </div>
+            <div class="c-field">
+              <label class="c-label">Message</label>
+              <textarea class="c-textarea" placeholder="Tell us about yourself, your playing experience, age group…"></textarea>
+            </div>
+            <button type="submit" class="c-submit">Send Message <span>→</span></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND ────────────────────────────── -->
+<section id="cta-band" class="sec">
+  <div class="cta-bg"></div>
+  <div class="cta-over"></div>
+  <div class="cta-noise"></div>
+  <div class="cta-inner">
+    <div data-r>
+      <div class="cta-tag">Ready to Begin?</div>
+      <h2 class="cta-h">Join the Academy.<br/>Shape Your Future.</h2>
+      <p class="cta-p">Take your cricket journey to the next level with ACA. Applications are open — limited elite places for the 2025–26 season. Don't miss your chance.</p>
+    </div>
+    <div class="cta-acts" data-r data-d="2">
+      <a href="#contact" class="btn btn-g arr">Register Now</a>
+      <a href="https://acacricketacademy.com/contact" class="btn btn-o">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER ──────────────────────────────── -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <a class="ft-logo" href="#hero"><span class="g">ACA</span> Cricket</a>
+      <p class="ft-desc">Assam Cricket Academy — a BCCI-affiliated centre of excellence developing the next generation of Assam's cricket stars since 2020. Based at Fulung, North Guwahati.</p>
+      <div class="ft-soc">
+        <a class="ft-sc" href="https://acacricketacademy.com" aria-label="Facebook">f</a>
+        <a class="ft-sc" href="https://acacricketacademy.com" aria-label="Instagram">◎</a>
+        <a class="ft-sc" href="https://acacricketacademy.com" aria-label="Twitter">𝕏</a>
+        <a class="ft-sc" href="https://acacricketacademy.com" aria-label="YouTube">▶</a>
+      </div>
+      <div style="margin-top:24px">
+        <div class="ft-h" style="margin-bottom:8px">Stay Updated</div>
+        <p style="font-size:.78rem;color:var(--w35);margin-bottom:10px">Get the latest news and announcements.</p>
+        <div class="ft-news-form">
+          <input class="ft-news-input" type="email" placeholder="Your email address" aria-label="Email for newsletter"/>
+          <button class="ft-news-btn" onclick="subscribeNewsletter()">Subscribe</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="ft-h">Navigate</div>
+      <ul class="ft-ul">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About ACA</a></li>
+        <li><a href="#programs">Training Programs</a></li>
+        <li><a href="#hgallery">Gallery</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#coaches">Coaches</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="ft-h">Programs</div>
+      <ul class="ft-ul">
+        <li><a href="#programs">Residential Program</a></li>
+        <li><a href="#programs">High-Performance</a></li>
+        <li><a href="#programs">Personal Coaching</a></li>
+        <li><a href="#programs">Pay &amp; Play</a></li>
+        <li><a href="#contact">Apply / Register</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="ft-h">Contact</div>
+      <div class="ft-crow">
+        <span class="ico">📍</span>
+        <span>Fulung, North Guwahati,<br/>Assam, India</span>
+      </div>
+      <div class="ft-crow">
+        <span class="ico">✉️</span>
+        <a href="mailto:info@acacricketacademy.com" style="color:var(--gold)">info@acacricketacademy.com</a>
+      </div>
+      <div class="ft-crow">
+        <span class="ico">🏅</span>
+        <span>BCCI Affiliated<br/>Assam Cricket Association</span>
+      </div>
+      <div class="ft-crow">
+        <span class="ico">🌐</span>
+        <a href="https://acacricketacademy.com" style="color:var(--gold)">acacricketacademy.com</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft-bot">
+    <span>© 2025 ACA Cricket Academy. All rights reserved.</span>
+    <span>Designed with ♥ for Assam Cricket &nbsp;·&nbsp; <a href="https://acacricketacademy.com">Privacy</a> &nbsp;·&nbsp; <a href="https://acacricketacademy.com">Terms</a></span>
+  </div>
+</footer>
+
+<!-- BACK TO TOP & TOAST ─────────────────── -->
+<button id="btt" onclick="scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<div id="toast"><span class="t-ic">✓</span><span id="toast-msg">Message sent!</span></div>
+
+<!-- ═══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+/* ── LOADER ──────────────────────────────── */
+const lbar = document.getElementById('lbar')
+const loader = document.getElementById('loader')
+let pct = 0
+const lti = setInterval(() => {
+  pct = Math.min(pct + Math.random() * 18, 95)
+  lbar.style.width = pct + '%'
+}, 120)
+window.addEventListener('load', () => {
+  clearInterval(lti)
+  lbar.style.width = '100%'
+  setTimeout(() => loader.classList.add('hide'), 400)
+})
+// fallback
+setTimeout(() => loader.classList.add('hide'), 3500)
+
+/* ── CURSOR ──────────────────────────────── */
+const dot = document.getElementById('cursor-dot')
+const ring = document.getElementById('cursor-ring')
+let mx = 0, my = 0, rx = 0, ry = 0
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px'
+})
+function animCursor() {
+  rx += (mx - rx) * .12; ry += (my - ry) * .12
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px'
+  requestAnimationFrame(animCursor)
+}
+animCursor()
+document.querySelectorAll('a,button,.p-card,.n-card,.cch-card,.w-card,.hg-item').forEach(el => {
+  el.addEventListener('mouseenter', () => { dot.classList.add('hover'); ring.classList.add('hover') })
+  el.addEventListener('mouseleave', () => { dot.classList.remove('hover'); ring.classList.remove('hover') })
+})
+
+/* ── SCROLL PROGRESS ─────────────────────── */
+const prog = document.getElementById('progress')
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight
+  prog.style.width = (window.scrollY / h * 100) + '%'
+}, {passive:true})
+
+/* ── NAV PIN ─────────────────────────────── */
+const nav = document.getElementById('nav')
+const btt = document.getElementById('btt')
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('pinned', window.scrollY > 60)
+  btt.classList.toggle('on', window.scrollY > 500)
+}, {passive:true})
+
+/* ── NAV ACTIVE LINK ─────────────────────── */
+const secs = document.querySelectorAll('section[id]')
+const nls  = document.querySelectorAll('.n-links a')
+const secObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      nls.forEach(l => l.classList.remove('act'))
+      const l = document.querySelector(`.n-links a[href="#${e.target.id}"]`)
+      if(l) l.classList.add('act')
+    }
+  })
+}, {threshold:.3})
+secs.forEach(s => secObs.observe(s))
+
+/* ── MOBILE NAV ──────────────────────────── */
+function toggleNav() {
+  const m = document.getElementById('nmenu')
+  m.classList.toggle('open')
+  const bars = document.querySelectorAll('#ham span')
+  if(m.classList.contains('open')) {
+    bars[0].style.cssText = 'transform:translateY(6.5px) rotate(45deg)'
+    bars[1].style.opacity = '0'
+    bars[2].style.cssText = 'transform:translateY(-6.5px) rotate(-45deg)'
+  } else { bars.forEach(b => b.style.cssText = '') }
+}
+document.querySelectorAll('.n-links a').forEach(a =>
+  a.addEventListener('click', () => {
+    document.getElementById('nmenu').classList.remove('open')
+    document.querySelectorAll('#ham span').forEach(b => b.style.cssText = '')
+  })
+)
+
+/* ── SCROLL REVEAL ───────────────────────── */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) { e.target.classList.add('on'); revObs.unobserve(e.target) }
+  })
+}, {threshold:.1, rootMargin:'0px 0px -50px 0px'})
+document.querySelectorAll('[data-r]').forEach(el => revObs.observe(el))
+
+/* ── COUNTER ─────────────────────────────── */
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(!e.isIntersecting) return
+    const el = e.target, target = +el.dataset.count
+    let v = 0, step = Math.ceil(target/65)
+    const t = setInterval(() => {
+      v = Math.min(v + step, target)
+      el.textContent = v.toLocaleString()
+      if(v >= target) clearInterval(t)
+    }, 20)
+    cntObs.unobserve(el)
+  })
+},{threshold:.5})
+document.querySelectorAll('[data-count]').forEach(el => cntObs.observe(el))
+
+/* ── PARALLAX HERO BG ────────────────────── */
+const hbg = document.getElementById('hbg')
+window.addEventListener('scroll', () => {
+  if(window.scrollY < window.innerHeight * 1.5)
+    hbg.style.transform = `translateY(${window.scrollY * .28}px) scale(1.05)`
+}, {passive:true})
+
+/* ── PROGRAM CARD TILT ───────────────────── */
+document.querySelectorAll('.p-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect()
+    const x = (e.clientX - r.left) / r.width - .5
+    const y = (e.clientY - r.top) / r.height - .5
+    card.style.transform = `translateY(-12px) scale(1.015) perspective(900px) rotateX(${-y * 5}deg) rotateY(${x * 5}deg)`
+  })
+  card.addEventListener('mouseleave', () => card.style.transform = '')
+})
+
+/* ── HORIZONTAL GALLERY DRAG ─────────────── */
+const hg = document.getElementById('hgscroll')
+let isDown = false, startX, scrollL
+hg.addEventListener('mousedown', e => {
+  isDown = true; hg.style.cursor = 'grabbing'
+  startX = e.pageX - hg.offsetLeft; scrollL = hg.scrollLeft
+})
+hg.addEventListener('mouseleave', () => { isDown = false; hg.style.cursor = '' })
+hg.addEventListener('mouseup', () => { isDown = false; hg.style.cursor = '' })
+hg.addEventListener('mousemove', e => {
+  if(!isDown) return
+  e.preventDefault()
+  hg.scrollLeft = scrollL - (e.pageX - hg.offsetLeft - startX) * 1.5
+})
+
+/* ── TESTIMONIAL SLIDER ──────────────────── */
+let tCur = 0
+const tSlides = document.querySelectorAll('.t-slide')
+const tPips = document.querySelectorAll('.t-pip')
+let tAuto
+
+function tGo(n) {
+  tSlides[tCur].classList.remove('on')
+  tPips[tCur].classList.remove('on')
+  tCur = (n + tSlides.length) % tSlides.length
+  tSlides[tCur].classList.add('on')
+  tPips[tCur].classList.add('on')
+  resetTAuto()
+}
+function tNext() { tGo(tCur + 1) }
+function tPrev() { tGo(tCur - 1) }
+function resetTAuto() {
+  clearInterval(tAuto)
+  tAuto = setInterval(tNext, 5500)
+}
+resetTAuto()
+
+/* ── CONTACT FORM ────────────────────────── */
+function submitForm(e) {
+  e.preventDefault()
+  showToast('✓', 'Message sent! We\'ll be in touch within 48 hours.')
+  e.target.reset()
+}
+
+/* ── NEWSLETTER ──────────────────────────── */
+function subscribeNewsletter() {
+  showToast('✓', 'You\'re subscribed to ACA updates!')
+}
+
+/* ── TOAST ───────────────────────────────── */
+function showToast(icon, msg) {
+  const t = document.getElementById('toast')
+  const m = document.getElementById('toast-msg')
+  m.textContent = msg
+  t.classList.add('on')
+  setTimeout(() => t.classList.remove('on'), 4000)
+}
+
+/* ── MAGNETIC BUTTONS ────────────────────── */
+document.querySelectorAll('.btn-g,.n-cta,.c-submit').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect()
+    const x = (e.clientX - r.left - r.width/2) * .25
+    const y = (e.clientY - r.top - r.height/2) * .25
+    btn.style.transform = `translate(${x}px,${y}px) scale(1.04)`
+  })
+  btn.addEventListener('mouseleave', () => { btn.style.transform = '' })
+})
+</script>
+</body>
+</html>
