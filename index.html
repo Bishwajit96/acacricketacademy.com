@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>ACA Cricket Academy — Train. Compete. Excel.</title>
-<meta name="description" content="Assam Cricket Academy — BCCI affiliated centre of excellence. Residential, High-Performance, Personal & Pay-and-Play programs. Fulung, North Guwahati."/>
+<meta name="description" content="ACA Cricket Academy — a unit of Assam Cricket Association. Residential, High-Performance, Personal & Pay-and-Play programs. Fulung, North Guwahati."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
 <style>
@@ -844,6 +844,101 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
   a,button{cursor:pointer}
   #cursor-dot,#cursor-ring{display:none}
 }
+/* ─────────────────────────────────────────
+   MILESTONES / TIMELINE
+───────────────────────────────────────── */
+#milestones{background:var(--g2)}
+.ms-head{text-align:center;max-width:600px;margin:0 auto 60px}
+.ms-head .s-p{margin:0 auto;text-align:center}
+.ms-track{position:relative;max-width:800px;margin:0 auto;padding-left:32px}
+.ms-track::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:2px;background:linear-gradient(180deg,var(--gold),transparent)
+}
+.ms-item{
+  position:relative;padding:0 0 44px 36px
+}
+.ms-item:last-child{padding-bottom:0}
+.ms-dot{
+  position:absolute;left:-7px;top:4px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--gold);border:3px solid var(--g2);
+  box-shadow:0 0 0 4px rgba(200,168,75,.2)
+}
+.ms-year{
+  font-family:'Syne',sans-serif;font-size:.63rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px
+}
+.ms-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:6px}
+.ms-desc{font-size:.83rem;color:var(--w60);line-height:1.75}
+
+/* ─────────────────────────────────────────
+   FAQ
+───────────────────────────────────────── */
+#faq{background:var(--g0)}
+.faq-wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:flex-start}
+.faq-left{}
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-item{
+  border-radius:16px;border:1px solid var(--w06);
+  background:var(--w03);overflow:hidden;
+  transition:border-color .3s
+}
+.faq-item.open{border-color:var(--ga25)}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:20px 22px;cursor:pointer;
+  font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;
+  transition:color .3s
+}
+.faq-item.open .faq-q{color:var(--gold)}
+.faq-icon{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  background:var(--w06);border:1px solid var(--w12);
+  display:grid;place-items:center;font-size:.75rem;
+  transition:background .3s,transform .35s var(--spring),color .3s
+}
+.faq-item.open .faq-icon{background:var(--gold);color:var(--g0);transform:rotate(45deg)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  font-size:.83rem;color:var(--w60);line-height:1.8;
+  transition:max-height .45s var(--ease),padding .35s
+}
+.faq-item.open .faq-a{max-height:200px;padding:0 22px 20px}
+
+/* ─────────────────────────────────────────
+   WHATSAPP FLOAT
+───────────────────────────────────────── */
+#wa-btn{
+  position:fixed;bottom:86px;left:28px;z-index:700;
+  width:50px;height:50px;border-radius:50%;
+  background:#25d366;color:#fff;
+  display:grid;place-items:center;
+  box-shadow:0 6px 24px rgba(37,211,102,.45);
+  transition:transform .35s var(--spring),box-shadow .3s;
+  cursor:none
+}
+#wa-btn:hover{transform:scale(1.12) translateY(-3px);box-shadow:0 12px 36px rgba(37,211,102,.6)}
+#wa-btn svg{width:26px;height:26px;fill:#fff}
+#wa-tooltip{
+  position:absolute;left:60px;top:50%;transform:translateY(-50%);
+  background:var(--g3);border:1px solid var(--ga25);
+  border-radius:10px;padding:7px 14px;
+  font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--w80);
+  white-space:nowrap;pointer-events:none;
+  opacity:0;transition:opacity .25s
+}
+#wa-btn:hover #wa-tooltip{opacity:1}
+
+@media(max-width:1024px){
+  .faq-wrap{grid-template-columns:1fr;gap:48px}
+  .ms-track{padding-left:24px}
+}
+@media(max-width:768px){
+  #wa-btn{bottom:28px;left:20px}
+}
+
 @media(max-width:480px){
   .h-btns,.cta-acts{flex-direction:column;align-items:flex-start}
   .cta-acts{min-width:unset}
@@ -887,18 +982,18 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
     <span>Felicitation: Sri Devajit Saikia, Secretary BCCI — Felicitated by ACA Cricket Academy</span>
     <span>Selections Open — High-Performance Advance Coaching Program 2025–26</span>
     <span>Orientation Program — 23 Aug 2025 — Fulung, North Guwahati</span>
-    <span>3,000 players screened · 40 elite places · BCCI Affiliated</span>
+    <span>3,000 players screened · 40 elite places · Unit of Assam Cricket Association</span>
     <span>Grand Inauguration — ACACA Permanent Campus — 16 Aug 2025</span>
     <span>Felicitation: Sri Devajit Saikia, Secretary BCCI — Felicitated by ACA Cricket Academy</span>
     <span>Selections Open — High-Performance Advance Coaching Program 2025–26</span>
     <span>Orientation Program — 23 Aug 2025 — Fulung, North Guwahati</span>
-    <span>3,000 players screened · 40 elite places · BCCI Affiliated</span>
+    <span>3,000 players screened · 40 elite places · Unit of Assam Cricket Association</span>
   </div>
 </div>
 
 <!-- NAV ─────────────────────────────────── -->
 <nav id="nav">
-  <a class="n-logo" href="#hero"><span class="g">ACA</span>&nbsp;Cricket</a>
+  <a class="n-logo" href="#hero"><span class="g">ACA</span>&nbsp;Cricket Academy</a>
 
   <ul class="n-links" id="nmenu">
     <li><a href="#hero" class="act">Home</a></li>
@@ -907,6 +1002,7 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
     <li><a href="#hgallery">Gallery</a></li>
     <li><a href="#news">News</a></li>
     <li><a href="#coaches">Coaches</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 
@@ -926,11 +1022,11 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
   <div class="h-orb h-orb2"></div>
   <div class="h-noise"></div>
 
-  <!-- floating BCCI badge -->
+  <!-- floating ACA badge -->
   <div class="h-badge">
     <div class="h-badge-icon">🏅</div>
     <div>
-      <div class="h-badge-t1">BCCI Affiliated</div>
+      <div class="h-badge-t1">Unit of ACA</div>
       <div class="h-badge-t2">Assam Cricket Association</div>
     </div>
   </div>
@@ -947,7 +1043,7 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
       <span class="h-line"><span class="h-stroke">Excel.</span></span>
     </h1>
 
-    <p class="h-sub">Assam Cricket Academy — a BCCI-affiliated centre of excellence. Transforming budding talent into professional cricketers through world-class coaching, data-driven analysis, and holistic development.</p>
+    <p class="h-sub">ACA Cricket Academy is a unit of Assam Cricket Association, dedicated to transforming budding talent into professional cricketers through world-class coaching, data-driven analysis, and holistic development.</p>
 
     <div class="h-btns">
       <a href="#programs" class="btn btn-g arr">Explore Programs</a>
@@ -986,7 +1082,7 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
 <!-- BAND ────────────────────────────────── -->
 <div id="band">
   <div class="band-wrap">
-    <div class="b-item" data-r data-d="1"><div class="b-val">BCCI</div><div class="b-lbl">Affiliated</div></div>
+    <div class="b-item" data-r data-d="1"><div class="b-val">ACA</div><div class="b-lbl">Unit of Assam Cricket</div></div>
     <div class="b-div"></div>
     <div class="b-item" data-r data-d="2"><div class="b-val">4+</div><div class="b-lbl">Programs</div></div>
     <div class="b-div"></div>
@@ -1007,7 +1103,7 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
         <div class="a-chip">
           <div class="a-chip-icon">🏆</div>
           <div>
-            <div class="a-chip-v">BCCI Affiliated</div>
+            <div class="a-chip-v">Est. 2020</div>
             <div class="a-chip-l">Assam Cricket Association</div>
           </div>
         </div>
@@ -1031,12 +1127,12 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
         <span class="s-tag">About the Academy</span>
         <h2 class="s-h2">A Centre of<br/><em>Excellence</em></h2>
         <p class="s-p">Operating since 2020, ACA has designed modern cricket programs built on the latest techniques — an all-inclusive platform for budding talents through to aspiring professionals, all with a clear pathway to greatness.</p>
-        <p class="s-p" style="margin-top:12px">Proudly affiliated with the Assam Cricket Association (BCCI), our permanent Fulung Campus in North Guwahati represents a historic milestone for cricket in Assam, inaugurated in August 2025 by Hon. CM Dr. Himanta Biswa Sarma.</p>
+        <p class="s-p" style="margin-top:12px">A proud unit of the Assam Cricket Association, our permanent Fulung Campus in North Guwahati represents a historic milestone for cricket in Assam — inaugurated in August 2025 by Hon. CM Dr. Himanta Biswa Sarma in the presence of BCCI Secretary Sri Devajit Saikia.</p>
 
         <div class="a-feats">
           <div class="a-feat" data-r data-d="1">
             <div class="a-feat-ic">🏏</div>
-            <div><div class="a-feat-name">BCCI Coaches</div><div class="a-feat-sub">Certified training staff</div></div>
+            <div><div class="a-feat-name">Expert Coaches</div><div class="a-feat-sub">Certified training staff</div></div>
           </div>
           <div class="a-feat" data-r data-d="2">
             <div class="a-feat-ic">🏟️</div>
@@ -1064,6 +1160,49 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
           <a href="#programs" class="btn btn-g arr">Explore Programs</a>
           <a href="#contact" class="btn btn-o">Get In Touch</a>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MILESTONES ──────────────────────────── -->
+<section id="milestones" class="sec py">
+  <div class="wrap">
+    <div class="ms-head" data-r>
+      <span class="s-tag">Our Journey</span>
+      <h2 class="s-h2">Key <em>Milestones</em></h2>
+      <p class="s-p">From a vision to a world-class campus — the ACA story so far.</p>
+    </div>
+    <div class="ms-track">
+      <div class="ms-item" data-r data-d="1">
+        <div class="ms-dot"></div>
+        <div class="ms-year">2020</div>
+        <div class="ms-title">Academy Founded</div>
+        <div class="ms-desc">ACA Cricket Academy was established as a unit of the Assam Cricket Association with a vision to nurture Assam's cricketing talent at the grassroots level.</div>
+      </div>
+      <div class="ms-item" data-r data-d="2">
+        <div class="ms-dot"></div>
+        <div class="ms-year">2020 – 2024</div>
+        <div class="ms-title">3,000+ Players Screened</div>
+        <div class="ms-desc">Rigorous selection trials across Assam led to the identification of exceptional talent — with only 40 elite places awarded in the flagship programs.</div>
+      </div>
+      <div class="ms-item" data-r data-d="3">
+        <div class="ms-dot"></div>
+        <div class="ms-year">16 Aug 2025</div>
+        <div class="ms-title">Permanent Campus Inaugurated</div>
+        <div class="ms-desc">The ACACA Permanent Campus at Fulung, North Guwahati was inaugurated by Hon. CM Dr. Himanta Biswa Sarma in the presence of BCCI Secretary Sri Devajit Saikia — a landmark moment for Assam cricket.</div>
+      </div>
+      <div class="ms-item" data-r data-d="4">
+        <div class="ms-dot"></div>
+        <div class="ms-year">23 Aug 2025</div>
+        <div class="ms-title">Orientation Program Commences</div>
+        <div class="ms-desc">The first batch of the High-Performance Advance Coaching Program 2025–26 began their journey at the new Fulung Campus — marking the start of a new era for ACA.</div>
+      </div>
+      <div class="ms-item" data-r data-d="5">
+        <div class="ms-dot"></div>
+        <div class="ms-year">2025 – 26</div>
+        <div class="ms-title">Selections Open</div>
+        <div class="ms-desc">Applications are now open for all four programs — Residential, High-Performance, Personal, and Pay &amp; Play — for the upcoming season. Limited places available.</div>
       </div>
     </div>
   </div>
@@ -1272,7 +1411,7 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
     <div class="cch-head" data-r>
       <span class="s-tag">Expert Coaching Staff</span>
       <h2 class="s-h2">Meet Our <em>Coaches</em></h2>
-      <p class="s-p">BCCI-certified professionals with decades of combined experience at domestic and international level.</p>
+      <p class="s-p">Professionally certified coaches with decades of combined experience at domestic and international level.</p>
     </div>
 
     <div class="cch-grid">
@@ -1291,7 +1430,7 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
           <div class="cch-tags">
             <span class="cch-tag">Batting</span>
             <span class="cch-tag">Tactics</span>
-            <span class="cch-tag">BCCI Level 3</span>
+            <span class="cch-tag">Level 3 Certified</span>
           </div>
         </div>
       </div>
@@ -1423,8 +1562,8 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
     <div class="why-grid">
       <div class="w-card" data-r data-d="1">
         <div class="w-ic">🏏</div>
-        <h3 class="w-title">BCCI Affiliated Coaching</h3>
-        <p class="w-text">Certified coaches trained by BCCI standards ensuring the highest quality of technical instruction and player development methodology.</p>
+        <h3 class="w-title">ACA Expert Coaching</h3>
+        <p class="w-text">Certified coaches backed by Assam Cricket Association ensuring the highest quality of technical instruction and player development methodology.</p>
       </div>
       <div class="w-card" data-r data-d="2">
         <div class="w-ic">🏟️</div>
@@ -1450,6 +1589,66 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
         <div class="w-ic">💪</div>
         <h3 class="w-title">Elite Fitness Training</h3>
         <p class="w-text">Dedicated S&amp;C coaches build the athletic foundation demanded by modern professional cricket at every level.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ ─────────────────────────────────── -->
+<section id="faq" class="sec py">
+  <div class="wrap">
+    <div class="faq-wrap">
+      <div data-r="left">
+        <span class="s-tag">FAQs</span>
+        <h2 class="s-h2">Common <em>Questions</em></h2>
+        <p class="s-p">Everything you need to know about enrolling and training at ACA Cricket Academy.</p>
+        <div style="margin-top:36px">
+          <a href="#contact" class="btn btn-g arr">Still Have Questions?</a>
+        </div>
+      </div>
+      <div class="faq-list" data-r="right">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What age groups does ACA accept?
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">ACA accepts players across multiple age groups — from Under-14 through to adult aspirants. Our programs are structured to suit different stages of cricketing development, from juniors to senior-level hopefuls.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How does the selection process work?
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">Candidates go through a rigorous selection trial conducted by ACA coaching staff. Over 3,000 players have been screened to date, with only 40 elite places awarded in the flagship programs. Apply through our registration form and our admissions team will contact you with trial details.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Is ACA a BCCI-affiliated academy?
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">ACA Cricket Academy is a unit of the Assam Cricket Association (ACA). While we are not directly BCCI-affiliated as an academy, our parent body — the Assam Cricket Association — operates under the BCCI framework. Our programs are designed to prepare players for Assam and national-level competition.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Where is the academy located?
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">Our permanent campus is situated at Fulung, North Guwahati, Assam. The campus was inaugurated in August 2025 and features world-class facilities including cricket pitches, professional nets, a fully-equipped gym, and on-site accommodation for residential students.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What programs are available?
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">We offer four structured programs: (1) Residential Training Program — full-time immersive coaching; (2) High-Performance Advance Coaching — elite-level training for state-level aspirants; (3) Personal &amp; Individual Programs — one-on-one tailored sessions; and (4) Pay &amp; Play — flexible access to training facilities.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How do I apply or register?
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">Simply fill out the registration form on this page or email us at info@acacricketacademy.com. Our admissions team will respond within 48 hours with all the information you need to begin your ACA journey.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1483,7 +1682,14 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
             <div class="cd-icon">🏅</div>
             <div>
               <div class="cd-label">Affiliation</div>
-              <div class="cd-val">BCCI Affiliated<br/>Assam Cricket Association</div>
+              <div class="cd-val">Unit of Assam Cricket Association</div>
+            </div>
+          </div>
+          <div class="cd-row">
+            <div class="cd-icon">📞</div>
+            <div>
+              <div class="cd-label">Phone</div>
+              <div class="cd-val"><a href="tel:+919999999999" style="color:var(--gold)">+91 99999 99999</a></div>
             </div>
           </div>
         </div>
@@ -1565,8 +1771,8 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
 <footer>
   <div class="ft-top">
     <div>
-      <a class="ft-logo" href="#hero"><span class="g">ACA</span> Cricket</a>
-      <p class="ft-desc">Assam Cricket Academy — a BCCI-affiliated centre of excellence developing the next generation of Assam's cricket stars since 2020. Based at Fulung, North Guwahati.</p>
+      <a class="ft-logo" href="#hero"><span class="g">ACA</span> Cricket Academy</a>
+      <p class="ft-desc">ACA Cricket Academy — a unit of Assam Cricket Association, developing the next generation of Assam's cricket stars since 2020. Based at Fulung, North Guwahati.</p>
       <div class="ft-soc">
         <a class="ft-sc" href="https://acacricketacademy.com" aria-label="Facebook">f</a>
         <a class="ft-sc" href="https://acacricketacademy.com" aria-label="Instagram">◎</a>
@@ -1592,6 +1798,8 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
         <li><a href="#hgallery">Gallery</a></li>
         <li><a href="#news">News</a></li>
         <li><a href="#coaches">Coaches</a></li>
+        <li><a href="#milestones">Milestones</a></li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
     </div>
 
@@ -1618,7 +1826,7 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
       </div>
       <div class="ft-crow">
         <span class="ico">🏅</span>
-        <span>BCCI Affiliated<br/>Assam Cricket Association</span>
+        <span>Unit of Assam Cricket Association</span>
       </div>
       <div class="ft-crow">
         <span class="ico">🌐</span>
@@ -1632,6 +1840,12 @@ footer{background:var(--g0);border-top:1px solid var(--w06)}
     <span>Designed with ♥ for Assam Cricket &nbsp;·&nbsp; <a href="https://acacricketacademy.com">Privacy</a> &nbsp;·&nbsp; <a href="https://acacricketacademy.com">Terms</a></span>
   </div>
 </footer>
+
+<!-- WHATSAPP FLOAT ──────────────────────── -->
+<a id="wa-btn" href="https://wa.me/919999999999?text=Hi%2C%20I%20am%20interested%20in%20ACA%20Cricket%20Academy%20programs." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <div id="wa-tooltip">WhatsApp Us</div>
+</a>
 
 <!-- BACK TO TOP & TOAST ─────────────────── -->
 <button id="btt" onclick="scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
@@ -1671,7 +1885,7 @@ function animCursor() {
   requestAnimationFrame(animCursor)
 }
 animCursor()
-document.querySelectorAll('a,button,.p-card,.n-card,.cch-card,.w-card,.hg-item').forEach(el => {
+document.querySelectorAll('a,button,.p-card,.n-card,.cch-card,.w-card,.hg-item,.faq-q').forEach(el => {
   el.addEventListener('mouseenter', () => { dot.classList.add('hover'); ring.classList.add('hover') })
   el.addEventListener('mouseleave', () => { dot.classList.remove('hover'); ring.classList.remove('hover') })
 })
@@ -1821,6 +2035,14 @@ function showToast(icon, msg) {
   m.textContent = msg
   t.classList.add('on')
   setTimeout(() => t.classList.remove('on'), 4000)
+}
+
+/* ── FAQ ACCORDION ───────────────────────── */
+function toggleFaq(el) {
+  const item = el.parentElement
+  const isOpen = item.classList.contains('open')
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'))
+  if(!isOpen) item.classList.add('open')
 }
 
 /* ── MAGNETIC BUTTONS ────────────────────── */
